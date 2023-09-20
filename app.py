@@ -52,3 +52,26 @@ def displayPDF(file):
 
 #streamlit code 
 st.set_page_config(layout="wide")
+
+def main():
+    st.title("Document Summarization App using Langauge Model")
+
+    uploaded_file = st.file_uploader("Upload your PDF file", type=['pdf'])
+
+    if uploaded_file is not None:
+        if st.button("Summarize"):
+            col1, col2 = st.columns(2)
+            filepath = "data/"+uploaded_file.name
+            with open(filepath, "wb") as temp_file:
+                temp_file.write(uploaded_file.read())
+            with col1:
+                st.info("Uploaded File")
+                pdf_view = displayPDF(filepath)
+
+            with col2:
+                summary = llm_pipeline(filepath)
+                st.info("Summarization Complete")
+                st.success(summary)
+
+if __name__ == "__main__":
+    main()
