@@ -9,7 +9,7 @@ import base64
 
 #model and tokenizer loading
 checkpoint = "LaMini-Flan-T5-248M"
-tokenizer = T5Tokenizer.from_pretrained(checkpoint)
+tokenizer = T5Tokenizer.from_pretrained(checkpoint,legacy=False)
 base_model = T5ForConditionalGeneration.from_pretrained(checkpoint, device_map='auto', torch_dtype=torch.float32)
 
 #file loader and preprocessing
