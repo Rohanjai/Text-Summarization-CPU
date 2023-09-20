@@ -23,3 +23,16 @@ def file_preprocessing(file):
         print(text)
         final_texts = final_texts + text.page_content
     return final_texts
+
+#LLM pipeline
+def llm_pipeline(filepath):
+    pipe_sum = pipeline(
+        'summarization',
+        model = base_model,
+        tokenizer = tokenizer,
+        max_length = 500, 
+        min_length = 50)
+    input_text = file_preprocessing(filepath)
+    result = pipe_sum(input_text)
+    result = result[0]['summary_text']
+    return result
